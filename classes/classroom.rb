@@ -3,11 +3,11 @@ class Classroom
 
   def initialize(label)
     @label = label
-    @students = []  
+    @students = []
   end
 
   def add_student(student)
     students << student
-    student.classroom = self  
+    student.classroom = self
   end
 end
