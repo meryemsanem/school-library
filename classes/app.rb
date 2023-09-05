@@ -3,6 +3,7 @@ require_relative 'person'
 require_relative 'rental'
 require_relative 'student'
 require_relative 'teacher'
+require_relative 'classroom'
 
 class App
   def initialize
@@ -31,7 +32,7 @@ class App
     name = gets.chomp
     print 'Has parent permission? [Y/N]: '
     parent_permission = gets.chomp
-    person = Student.new(age, name, parent_permission)
+    person = Student.new(age, parent_permission, name: name)
     @people.push(person)
     puts "Student '#{name}' created successfully"
   end
@@ -43,7 +44,7 @@ class App
     name = gets.chomp
     print 'Specialization: '
     specialization = gets.chomp
-    person = Teacher.new(age, name, specialization)
+    person = Teacher.new(age, specialization, name: name)
     @people.push(person)
     puts "Teacher '#{name}' created successfully"
   end
@@ -96,8 +97,8 @@ class App
       puts 'ID of person: '
       person_id = gets.chomp.to_i
       puts 'Rentals: '
-      @rentals.each do |rental, _index|
-        if person_id == rental.person_id
+      @rentals.each do |rental|
+        if person_id == rental.person.id
           puts "Date: #{rental.date}, Book '#{rental.book.title}' by #{rental.book.author}"
         end
       end
