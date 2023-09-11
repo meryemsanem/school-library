@@ -60,25 +60,25 @@ class App
   end
 
   def create_rental
-  book_index = select_book
-  person_index = select_person
-  print 'Date: '
-  date = gets.chomp
-  @rentals.push(Rental.new(date, @books[book_index], @people[person_index]))
-  puts 'Rental created successfully'
-end
+    book_index = select_book
+    person_index = select_person
+    print 'Date: '
+    date = gets.chomp
+    @rentals.push(Rental.new(date, @books[book_index], @people[person_index]))
+    puts 'Rental created successfully'
+  end
 
-def select_book
-  puts 'Select a book from the following list by number:'
-  list_books
-  gets.chomp.to_i
-end
+  def select_book
+    puts 'Select a book from the following list by number:'
+    list_books
+    gets.chomp.to_i
+  end
 
-def select_person
-  puts 'Select a person from the following list by number (not id):'
-  list_people
-  gets.chomp.to_i
-end
+  def select_person
+    puts 'Select a person from the following list by number (not id):'
+    list_people
+    gets.chomp.to_i
+  end
 
   def list_books
     @books.each_with_index do |book, index|
