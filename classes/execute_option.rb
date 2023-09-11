@@ -1,5 +1,3 @@
-require_relative 'main'
-
 def execute_option(app, number)
   case number
   when 1
