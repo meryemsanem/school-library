@@ -4,6 +4,7 @@ require './classes/execute_option'
 app = App.new
 
 def main(app)
+  app.load_data
   puts 'Welcome to School Library App!'
   loop do
     puts 'Please choose an option by entering a number:'
