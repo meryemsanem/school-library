@@ -1,16 +1,17 @@
+require 'json'
 require_relative 'book'
 require_relative 'person'
 require_relative 'rental'
 require_relative 'student'
 require_relative 'teacher'
 require_relative 'classroom'
-require 'json'
 
 class App
   def initialize
     @books = []
     @people = []
     @rentals = []
+    load_data
   end
 
   def create_person
@@ -108,4 +109,19 @@ class App
       end
     end
   end
+
+  def save_data
+    File.open('books.json', 'w') { |file| file.write(JSON.generate(@books)) }
+    File.open('people.json', 'w') { |file| file.write(JSON.generate(@people)) }
+    File.open('rentals.json', 'w') { |file| file.write(JSON.generate(@rentals)) }
+  end
+
+  def load_data
+    @books = JSON.parse(File.read('books.json')) if File.exist?('books.json')
+    @people = JSON.parse(File.read('people.json')) if File.exist?('people.json')
+    @rentals = JSON.parse(File.read('rentals.json')) if File.exist?('rentals.json')
+    rescue JSON::ParserError
+    puts 'Error loading data from JSON files. Starting with empty data.'
+ end
+
 end

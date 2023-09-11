@@ -1,3 +1,4 @@
+require 'json'
 require './classes/app'
 require './classes/execute_option'
 app = App.new
@@ -5,7 +6,7 @@ app = App.new
 def main(app)
   puts 'Welcome to School Library App!'
   loop do
-    puts 'Please choose an option by enterin a number:'
+    puts 'Please choose an option by entering a number:'
     puts '1 - List all books'
     puts '2 - List all people'
     puts '3 - Create a person'
@@ -19,6 +20,10 @@ def main(app)
 
     execute_option(app, number)
   end
+end
+
+at_exit do
+  app.save_data
 end
 
 main(app)
