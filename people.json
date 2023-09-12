@@ -5,14 +5,26 @@
     "name": "unknown"
   },
   {
+    "type": "student",
+    "age": 12,
+    "name": "unknown"
+  },
+  {
     "type": "teacher",
     "age": 40,
-    "name": "unknown",
+    "name": "MrP",
+    "specialization": "Biologist"
+  },
+  {
+    "type": "teacher",
+    "age": 23,
+    "name": "MRM",
     "specialization": "Doctor"
   },
   {
-    "type": "student",
-    "age": 18,
-    "name": "unknown"
+    "type": "teacher",
+    "age": 50,
+    "name": "MrZ",
+    "specialization": "Doctor"
   }
 ]

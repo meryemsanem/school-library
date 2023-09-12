@@ -111,17 +111,33 @@ class App
   end
 
 def load_data
+  # Load books data
   @books = ReadFile.new('books.json').read.map { |book| Book.new(book['title'], book['author']) }
 
+  # Initialize separate lists for students and teachers
+  students = []
+  teachers = []
+
+  # Load people data with type checking
   people_data = ReadFile.new('people.json').read
-  @people = people_data.map do |person|
+  people_data.each do |person|
     if person['type'] == 'student'
-      Student.new(person['age'], person['name'])
+      age = person['age']
+      name = person.key?('name') ? person['name'] : 'Unknown'
+      students.push(Student.new(age, name))
     elsif person['type'] == 'teacher'
-      Teacher.new(person['age'], person['specialization'])
+      age = person['age']
+      specialization = person['specialization']
+      name = person.key?('name') ? person['name'] : 'Unknown'
+      teachers.push(Teacher.new(age, specialization, name: name))
     end
   end
+
+  # Set the @people instance variable to the merged list of students and teachers
+  @people = students + teachers
 end
+
+
 
 
 def save_data
