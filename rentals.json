@@ -11,5 +11,18 @@
       "age": 23,
       "name": "James"
     }
+  },
+  {
+    "date": "2019-12-12",
+    "book": {
+      "title": "Harry porter",
+      "author": "someone"
+    },
+    "person": {
+      "type": "student",
+      "id": 795,
+      "age": 20,
+      "name": "John"
+    }
   }
 ]
