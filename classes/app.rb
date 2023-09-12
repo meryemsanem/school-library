@@ -62,7 +62,7 @@ class App
     person_index = select_person
     print 'Date: '
     date = gets.chomp
-    @rentals.push(Rental.new(id, date, @books[book_index], @people[person_index]))
+    @rentals.push(Rental.new(date, @books[book_index], @people[person_index]))
     puts 'Rental created successfully'
   end
   def select_book
@@ -86,19 +86,20 @@ class App
       puts "#{index} - [#{type}]  Age: #{person.age}, Name: #{person.name}, ID: #{person.id},"
     end
   end
-  def list_rentals
-   # if @rentals.empty?
-    #  puts 'There are no rentals to show'
-    #else
-      puts 'ID of person: '
-      person_id = gets.chomp.to_i
-      puts 'Rentals: '
-      @rentals.each do |rental|
-        if person_id == rental.person.id
-          puts "Date: #{rental.date}, Book '#{rental.book.title}' by #{rental.book.author}"
-        end
-      end
+ def list_rentals
+  if @rentals.empty?
+    puts 'There are no rentals to show'
+  else
+    puts 'ID of person: '
+    person_id = gets.chomp.to_i
+    puts 'Rentals: '
+    @rentals.each do |rental|
+    if person_id == rental.person.id
+      puts "Person ID: #{rental.person.id}, Date: #{rental.date}, Book '#{rental.book.title}' by #{rental.book.author}"
     end
+  end
+end
+end
 def load_data
   # Load books data
   @books = ReadFile.new('books.json').read.map { |book| Book.new(book['title'], book['author']) }
@@ -123,26 +124,31 @@ end
   @people = students + teachers
 end
  def save_data
-    # Store books data
-    books_data = @books.map { |book| { title: book.title, author: book.author } }
-    WriteFile.new('books.json').write(books_data)
-    # Store people data only if there are people objects
-    if @people.any?
-      students_data = @people.select { |person| person.is_a?(Student) }.map do |student|
-        { type: 'student', id: student.id, age: student.age, name: student.name }
-      end
-      teachers_data = @people.select { |person| person.is_a?(Teacher) }.map do |teacher|
-        { type: 'teacher', id: teacher.id, age: teacher.age, name: teacher.name, specialization: teacher.specialization }
-      end
-      people_data = students_data + teachers_data
-      WriteFile.new('people.json').write(people_data)
+  # Store books data
+  books_data = @books.map { |book| { title: book.title, author: book.author } }
+  WriteFile.new('books.json').write(books_data)
+  # Store people data only if there are people objects
+  if @people.any?
+    students_data = @people.select { |person| person.is_a?(Student) }.map do |student|
+      { type: 'student', id: student.id, age: student.age, name: student.name }
     end
-    # Store rentals data if available
-    if @rentals.any?
-      rentals_data = @rentals.map do |rental|
-        { id: rental.id, date: rental.date, book: {title: rental.book.title, author: rental.book.author}, person: {type: rental.person.class.to_s.downcase, id: rental.person.id, age: rental.person.age, name: rental.person.name} }
-      end
-      WriteFile.new('rentals.json').write(rentals_data)
+    teachers_data = @people.select { |person| person.is_a?(Teacher) }.map do |teacher|
+      { type: 'teacher', id: teacher.id, age: teacher.age, name: teacher.name, specialization: teacher.specialization }
     end
+    people_data = students_data + teachers_data
+    WriteFile.new('people.json').write(people_data)
   end
+    # Store rentals data if available
+  if @rentals.any?
+    existing_rentals = ReadFile.new('rentals.json').read || [] # Load existing rentals
+    rentals_data = existing_rentals + @rentals.map do |rental|
+      {
+        date: rental.date,
+        book: { title: rental.book.title, author: rental.book.author },
+        person: { type: rental.person.class.to_s.downcase, id: rental.person.id, age: rental.person.age, name: rental.person.name }
+      }
+    end
+    WriteFile.new('rentals.json').write(rentals_data)
+  end
+end
 end
