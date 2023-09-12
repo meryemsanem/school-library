@@ -6,7 +6,7 @@ require_relative 'student'
 require_relative 'teacher'
 require_relative 'classroom'
 require_relative 'preserve_data'
-# rubocop:disable Metrics/ClassLength
+
 class App
   def initialize
     @books = []
@@ -197,32 +197,35 @@ class App
   end
 end
 
-def list_rentals
-  puts 'Select a person from the following list by number (not id):'
-  list_people
-  person_index = gets.chomp.to_i
+def list_rentals(file_path, person_id)
+  rentals_data = JSON.parse(File.read(file_path))
 
-  if person_index >= 0 && person_index < @people.length
-    selected_person = @people[person_index]
-    person_id = selected_person.id
+  person_rentals = rentals_data.select { |rental| rental["person"]["id"] == person_id }
 
-    puts 'Rentals:'
-
-    # Debugging statement
-    puts "@rentals contents: #{@rentals}"
-
-    person_rentals = @rentals.select { |rental| rental.person.id == person_id }
-
-    if person_rentals.empty?
-      puts 'No rentals found for this person.'
-    else
-      person_rentals.each do |rental|
-        puts "Date: #{rental.date}, Book '#{rental.book.title}' by #{rental.book.author}"
-      end
-    end
+  if person_rentals.empty?
+    puts "No rentals found for person with ID #{person_id}."
   else
-    puts 'Invalid person selection.'
+    person_rentals.each do |rental|
+      date = rental["date"]
+      book_title = rental["book"]["title"]
+      book_author = rental["book"]["author"]
+      person_type = rental["person"]["type"]
+      person_id = rental["person"]["id"]
+      person_age = rental["person"]["age"]
+      person_name = rental["person"]["name"]
+
+      puts "Date: #{date}"
+      puts "Book Title: #{book_title}"
+      puts "Book Author: #{book_author}"
+      puts "Person Type: #{person_type}"
+      puts "Person ID: #{person_id}"
+      puts "Person Age: #{person_age}"
+      puts "Person Name: #{person_name}"
+      puts "--------------------"
+    end
   end
 end
 
-# rubocop:enable Metrics/ClassLength
+file_path = 'rentals.json'
+person_id = 110
+list_rentals(file_path, person_id)
