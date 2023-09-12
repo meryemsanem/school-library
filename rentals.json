@@ -39,19 +39,6 @@
     }
   },
   {
-    "date": "2023-02-12",
-    "book": {
-      "title": "book1",
-      "author": "someone"
-    },
-    "person": {
-      "type": "teacher",
-      "id": 110,
-      "age": 40,
-      "name": "MrTomas"
-    }
-  },
-  {
     "date": "2023-12-12",
     "book": {
       "title": "CodingforNoobs",

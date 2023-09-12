@@ -6,7 +6,7 @@ require_relative 'student'
 require_relative 'teacher'
 require_relative 'classroom'
 require_relative 'preserve_data'
-
+# rubocop:disable Metrics/ClassLength
 class App
   def initialize
     @books = []
@@ -200,19 +200,19 @@ end
 def list_rentals(file_path, person_id)
   rentals_data = JSON.parse(File.read(file_path))
 
-  person_rentals = rentals_data.select { |rental| rental["person"]["id"] == person_id }
+  person_rentals = rentals_data.select { |rental| rental['person']['id'] == person_id }
 
   if person_rentals.empty?
     puts "No rentals found for person with ID #{person_id}."
   else
     person_rentals.each do |rental|
-      date = rental["date"]
-      book_title = rental["book"]["title"]
-      book_author = rental["book"]["author"]
-      person_type = rental["person"]["type"]
-      person_id = rental["person"]["id"]
-      person_age = rental["person"]["age"]
-      person_name = rental["person"]["name"]
+      date = rental['date']
+      book_title = rental['book']['title']
+      book_author = rental['book']['author']
+      person_type = rental['person']['type']
+      person_id = rental['person']['id']
+      person_age = rental['person']['age']
+      person_name = rental['person']['name']
 
       puts "Date: #{date}"
       puts "Book Title: #{book_title}"
@@ -221,11 +221,15 @@ def list_rentals(file_path, person_id)
       puts "Person ID: #{person_id}"
       puts "Person Age: #{person_age}"
       puts "Person Name: #{person_name}"
-      puts "--------------------"
+      puts '--------------------'
     end
   end
 end
 
 file_path = 'rentals.json'
-person_id = 110
+
+print 'Enter the person ID to display rentals: '
+person_id = gets.chomp.to_i
+
 list_rentals(file_path, person_id)
+# rubocop:enable Metrics/ClassLength

@@ -19,7 +19,13 @@ def main(app)
     number = gets.chomp.to_i
     break if number == 7
 
-    execute_option(app, number)
+    if number == 6
+      puts 'Enter the ID of the person: '
+      person_id = gets.chomp.to_i
+      app.list_rentals('rentals.json', person_id)
+    else
+      execute_option(app, number)
+    end
   end
 end
 
