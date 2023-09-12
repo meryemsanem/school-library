@@ -96,17 +96,17 @@ class App
   end
 
   def list_rentals
-  puts 'Enter the ID of the person: '
-  person_id = gets.chomp.to_i
-  puts 'Rentals: '
-  person_rentals = @rentals.select { |rental| rental[:person][:id] == person_id }
-  if person_rentals.empty?
-    puts 'No rentals found for this person.'
-  else
-    person_rentals.each do |rental|
-      puts "Date: #{rental[:date]}, Book '#{rental[:book][:title]}' by #{rental[:book][:author]}"
+    puts 'Enter the ID of the person: '
+    person_id = gets.chomp.to_i
+    puts 'Rentals: '
+    person_rentals = @rentals.select { |rental| rental[:person][:id] == person_id }
+    if person_rentals.empty?
+      puts 'No rentals found for this person.'
+    else
+      person_rentals.each do |rental|
+        puts "Date: #{rental[:date]}, Book '#{rental[:book][:title]}' by #{rental[:book][:author]}"
+      end
     end
-  end
   end
 
   def load_data
