@@ -95,21 +95,19 @@ class App
     end
   end
 
-  def list_rentals
-    if @rentals.empty?
-      puts 'There are no rentals to show'
-    else
-      puts 'ID of person: '
-      person_id = gets.chomp.to_i
-      puts 'Rentals: '
-      @rentals.each do |rental|
-        if person_id == rental.person.id
-          puts "Person ID: #{rental.person.id}, Date: #{rental.date}, Book '#{rental.book.title}' by
-          #{rental.book.author}"
-        end
-      end
+ def list_rentals
+  puts 'Enter the ID of the person: '
+  person_id = gets.chomp.to_i
+  puts 'Rentals: '
+  person_rentals = @rentals.select { |rental| rental.person.id == person_id }
+  if person_rentals.empty?
+    puts 'No rentals found for this person.'
+  else
+    person_rentals.each do |rental|
+      puts "Rental ID: #{rental.rental_id}, Date: #{rental.date}, Book '#{rental.book.title}' by #{rental.book.author}"
     end
   end
+end
 
   def load_data
     load_books_data
@@ -196,6 +194,29 @@ class App
       }
     end
     WriteFile.new('rentals.json').write(rentals_data)
+  end
+end
+
+def list_rentals
+  rentals_data = ReadFile.new('rentals.json').read
+
+  if rentals_data.nil? || rentals_data.empty?
+    puts 'There are no rentals to show'
+  else
+    rentals_data.each do |rental_data|
+      date = rental_data['date']
+      book_data = rental_data['book']
+      person_data = rental_data['person']
+      book_title = book_data['title']
+      book_author = book_data['author']
+      person_id = person_data['id']
+      person_name = person_data['name']
+
+      puts "Date: #{date}"
+      puts "Book: '#{book_title}' by #{book_author}"
+      puts "Person ID: #{person_id}, Name: #{person_name}"
+      puts '-' * 40
+    end
   end
 end
 # rubocop:enable Metrics/ClassLength
