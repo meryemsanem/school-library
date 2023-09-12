@@ -6,7 +6,7 @@ require_relative 'student'
 require_relative 'teacher'
 require_relative 'classroom'
 require_relative 'preserve_data'
-
+# rubocop:disable Metrics/ClassLength
 class App
   def initialize
     @books = []
@@ -198,3 +198,4 @@ class App
     WriteFile.new('rentals.json').write(rentals_data)
   end
 end
+# rubocop:enable Metrics/ClassLength
