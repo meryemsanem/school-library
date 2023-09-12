@@ -1,7 +1,15 @@
 [
   {
     "date": "2023-12-12",
-    "book": "\"#<Book:0x000000010f459600>\"",
-    "person": "\"#<Student:0x000000010f53f0b0>\""
+    "book": {
+      "title": "1984",
+      "author": "George Orwell"
+    },
+    "person": {
+      "type": "student",
+      "id": 827,
+      "age": 23,
+      "name": "James"
+    }
   }
 ]

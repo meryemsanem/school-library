@@ -112,36 +112,45 @@ class App
   end
 
   def load_data
-    # Load books data
+    load_books_data
+    load_people_data
+  end
+
+  def load_books_data
     @books = ReadFile.new('books.json').read.map { |book| Book.new(book['title'], book['author']) }
+  end
 
-    # Load people data
+  def load_people_data
     people_data = ReadFile.new('people.json').read || []
-
-    # Initialize separate lists for students and teachers
     students = []
     teachers = []
 
-    # Iterate over the loaded data and assign IDs consistently
     people_data.each do |person|
       if person['type'] == 'student'
-        age = person['age']
-        name = person.key?('name') ? person['name'] : 'Unknown'
-        student = Student.new(age, person['parent_permission'], name: name)
-        student.id = person['id']
-        students.push(student)
+        students.push(load_student_data(person))
       elsif person['type'] == 'teacher'
-        age = person['age']
-        specialization = person['specialization']
-        name = person.key?('name') ? person['name'] : 'Unknown'
-        teacher = Teacher.new(age, specialization, name: name)
-        teacher.id = person['id']
-        teachers.push(teacher)
+        teachers.push(load_teacher_data(person))
       end
     end
 
-    # Set the @people instance variable to the merged list of students and teachers
     @people = students + teachers
+  end
+
+  def load_student_data(data)
+    age = data['age']
+    name = data.key?('name') ? data['name'] : 'Unknown'
+    student = Student.new(age, data['parent_permission'], name: name)
+    student.id = data['id']
+    student
+  end
+
+  def load_teacher_data(data)
+    age = data['age']
+    specialization = data['specialization']
+    name = data.key?('name') ? data['name'] : 'Unknown'
+    teacher = Teacher.new(age, specialization, name: name)
+    teacher.id = data['id']
+    teacher
   end
 
   def save_data
