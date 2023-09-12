@@ -69,7 +69,33 @@ class App
     @rentals.push(Rental.new(date, @books[book_index], @people[person_index]))
     puts 'Rental created successfully'
   end
+def list_rentals(person_id)
+  rentals_data = ReadFile.new('rentals.json').read || []
+  person_rentals = rentals_data.select { |rental| rental['person']['id'] == person_id }
 
+  if person_rentals.empty?
+    puts "No rentals found for person with ID #{person_id}."
+  else
+    person_rentals.each do |rental|
+      date = rental['date']
+      book_title = rental['book']['title']
+      book_author = rental['book']['author']
+      person_type = rental['person']['type']
+      person_id = rental['person']['id']
+      person_age = rental['person']['age']
+      person_name = rental['person']['name']
+
+      puts "Date: #{date}"
+      puts "Book Title: #{book_title}"
+      puts "Book Author: #{book_author}"
+      puts "Person Type: #{person_type}"
+      puts "Person ID: #{person_id}"
+      puts "Person Age: #{person_age}"
+      puts "Person Name: #{person_name}"
+      puts '--------------------'
+    end
+  end
+end
   def select_book
     puts 'Select a book from the following list by number:'
     list_books
@@ -183,30 +209,3 @@ class App
   end
 end
 
-def list_rentals(person_id)
-  rentals_data = ReadFile.new('rentals.json').read || []
-  person_rentals = rentals_data.select { |rental| rental['person']['id'] == person_id }
-
-  if person_rentals.empty?
-    puts "No rentals found for person with ID #{person_id}."
-  else
-    person_rentals.each do |rental|
-      date = rental['date']
-      book_title = rental['book']['title']
-      book_author = rental['book']['author']
-      person_type = rental['person']['type']
-      person_id = rental['person']['id']
-      person_age = rental['person']['age']
-      person_name = rental['person']['name']
-
-      puts "Date: #{date}"
-      puts "Book Title: #{book_title}"
-      puts "Book Author: #{book_author}"
-      puts "Person Type: #{person_type}"
-      puts "Person ID: #{person_id}"
-      puts "Person Age: #{person_age}"
-      puts "Person Name: #{person_name}"
-      puts '--------------------'
-    end
-  end
-end
