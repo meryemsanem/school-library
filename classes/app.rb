@@ -198,7 +198,7 @@ class App
 end
 
 def list_rentals(person_id)
-   rentals_data = ReadFile.new('rentals.json').read || []
+  rentals_data = ReadFile.new('rentals.json').read || []
   person_rentals = rentals_data.select { |rental| rental['person']['id'] == person_id }
 
   if person_rentals.empty?
