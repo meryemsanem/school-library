@@ -69,6 +69,7 @@ class App
     date = gets.chomp
     @rentals.push(Rental.new(date, @books[book_index], @people[person_index]))
     puts 'Rental created successfully'
+    save_data
   end
 
   def list_rentals(person_id)
