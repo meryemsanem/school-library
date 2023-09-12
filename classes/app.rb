@@ -6,12 +6,12 @@ require_relative 'student'
 require_relative 'teacher'
 require_relative 'classroom'
 require_relative 'preserve_data'
-# rubocop:disable Metrics/ClassLength
 class App
   def initialize
     @books = []
     @people = []
     @rentals = []
+    @rentals_file_path = 'rentals.json'
   end
 
   def create_person
@@ -95,19 +95,19 @@ class App
     end
   end
 
-  def list_rentals
-    puts 'Enter the ID of the person: '
-    person_id = gets.chomp.to_i
-    puts 'Rentals: '
-   person_rentals = @rentals.select { |rental| rental.person.id == person_id }
-    if person_rentals.empty?
-      puts 'No rentals found for this person.'
-    else
-      person_rentals.each do |rental|
-        puts "Date: #{rental.date}, Book '#{rental.book.title}' by #{rental.book.author}"
-      end
-    end
-  end
+  # def list_rentals
+  #   puts 'Enter the ID of the person: '
+  #   person_id = gets.chomp.to_i
+  #   puts 'Rentals: '
+  #   person_rentals = @rentals.select { |rental| rental.person.id == person_id }
+  #   if person_rentals.empty?
+  #     puts 'No rentals found for this person.'
+  #   else
+  #     person_rentals.each do |rental|
+  #       puts "Date: #{rental.date}, Book '#{rental.book.title}' by #{rental.book.author}"
+  #     end
+  #   end
+  # end
 
   def load_data
     load_books_data
@@ -184,7 +184,7 @@ class App
     # Store rentals data if available
     return unless @rentals.any?
 
-    existing_rentals = ReadFile.new('rentals.json').read || [] # Load existing rentals
+    existing_rentals = ReadFile.new('rentals.json').read || []
     rentals_data = existing_rentals + @rentals.map do |rental|
       {
         date: rental.date,
@@ -197,9 +197,8 @@ class App
   end
 end
 
-def list_rentals(file_path, person_id)
-  rentals_data = JSON.parse(File.read(file_path))
-
+def list_rentals(person_id)
+   rentals_data = ReadFile.new('rentals.json').read || []
   person_rentals = rentals_data.select { |rental| rental['person']['id'] == person_id }
 
   if person_rentals.empty?
@@ -225,11 +224,3 @@ def list_rentals(file_path, person_id)
     end
   end
 end
-
-file_path = 'rentals.json'
-
-print 'Enter the person ID to display rentals: '
-person_id = gets.chomp.to_i
-
-list_rentals(file_path, person_id)
-# rubocop:enable Metrics/ClassLength

@@ -22,7 +22,7 @@ def main(app)
     if number == 6
       puts 'Enter the ID of the person: '
       person_id = gets.chomp.to_i
-      app.list_rentals('rentals.json', person_id)
+      list_rentals(person_id)
     else
       execute_option(app, number)
     end

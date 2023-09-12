@@ -1,34 +1,28 @@
 [
   {
     "type": "student",
-    "id": 496,
+    "id": 123,
     "age": 23,
     "name": "James"
   },
   {
     "type": "student",
-    "id": 795,
-    "age": 20,
-    "name": "John"
-  },
-  {
-    "type": "student",
-    "id": 563,
-    "age": 20,
-    "name": "Tommy"
+    "id": 900,
+    "age": 18,
+    "name": "Emily"
   },
   {
     "type": "teacher",
-    "id": 752,
+    "id": 139,
     "age": 30,
-    "name": "MrJ",
+    "name": "MrsP",
     "specialization": "Doctor"
   },
   {
     "type": "teacher",
-    "id": 110,
+    "id": 51,
     "age": 40,
-    "name": "MrTomas",
-    "specialization": "Doctor"
+    "name": "MrPeanut",
+    "specialization": "Biologist"
   }
 ]

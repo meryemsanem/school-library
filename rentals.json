@@ -2,66 +2,14 @@
   {
     "date": "2023-12-12",
     "book": {
-      "title": "1984",
-      "author": "George Orwell"
+      "title": "Harry Porter",
+      "author": "Author1"
     },
     "person": {
       "type": "student",
-      "id": 827,
+      "id": 123,
       "age": 23,
       "name": "James"
-    }
-  },
-  {
-    "date": "2023-09-12",
-    "book": {
-      "title": "Harry porter",
-      "author": "someone"
-    },
-    "person": {
-      "type": "student",
-      "id": 563,
-      "age": 20,
-      "name": "Tommy"
-    }
-  },
-  {
-    "date": "2023-09-12",
-    "book": {
-      "title": "book1",
-      "author": "someone"
-    },
-    "person": {
-      "type": "teacher",
-      "id": 110,
-      "age": 40,
-      "name": "MrTomas"
-    }
-  },
-  {
-    "date": "2023-12-12",
-    "book": {
-      "title": "CodingforNoobs",
-      "author": "someone"
-    },
-    "person": {
-      "type": "student",
-      "id": 795,
-      "age": 20,
-      "name": "John"
-    }
-  },
-  {
-    "date": "2023/05/08",
-    "book": {
-      "title": "Harry porter",
-      "author": "someone"
-    },
-    "person": {
-      "type": "student",
-      "id": 563,
-      "age": 20,
-      "name": "Tommy"
     }
   }
 ]
