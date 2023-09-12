@@ -113,10 +113,17 @@ class App
   def load_data
     books = ReadFile.new('books.json').read
     books.map { |book| @books.push(Book.new(book['title'], book['author'])) }
+
+    people = ReadFile.new('people.json').read
+    people.map { |people| @people.push(Person.new(people['name'], people['age'])) }
   end
 
   def save_data
+    # Store books data
     books = @books.map { |book| { title: book.title, author: book.author } }
     WriteFile.new('books.json').write(books)
+    # Store people data
+    people = @people.map { |people| { name: people.name, age: people.age } }
+    WriteFile.new('people.json').write(people)
   end
 end
