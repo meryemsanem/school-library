@@ -1,3 +1,18 @@
 [
-
+  {
+    "type": "student",
+    "age": 23,
+    "name": "unknown"
+  },
+  {
+    "type": "teacher",
+    "age": 40,
+    "name": "unknown",
+    "specialization": "Doctor"
+  },
+  {
+    "type": "student",
+    "age": 18,
+    "name": "unknown"
+  }
 ]

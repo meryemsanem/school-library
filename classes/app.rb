@@ -91,7 +91,7 @@ class App
   def list_people
     @people.each_with_index do |person, index|
       type = person.instance_of?(Student) ? 'Student' : 'Teacher'
-      puts "#{index} - [#{type}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+      puts "#{index} - [#{type}]  Age: #{person.age}, Name: #{person.name}, ID: #{person.id},"
     end
   end
 
@@ -110,20 +110,48 @@ class App
     end
   end
 
-  def load_data
-    books = ReadFile.new('books.json').read
-    books.map { |book| @books.push(Book.new(book['title'], book['author'])) }
+def load_data
+  @books = ReadFile.new('books.json').read.map { |book| Book.new(book['title'], book['author']) }
 
-    people = ReadFile.new('people.json').read
-    people.map { |people| @people.push(Person.new(people['name'], people['age'])) }
+  people_data = ReadFile.new('people.json').read
+  @people = people_data.map do |person|
+    if person['type'] == 'student'
+      Student.new(person['age'], person['name'])
+    elsif person['type'] == 'teacher'
+      Teacher.new(person['age'], person['specialization'])
+    end
+  end
+end
+
+
+def save_data
+  # Store books data
+  books_data = @books.map { |book| { title: book.title, author: book.author } }
+  WriteFile.new('books.json').write(books_data)
+
+  # Store people data only if there are people objects
+  if @people.any?
+    people_data = @people.map do |person|
+      if person.is_a?(Student)
+        { type: 'student', age: person.age, name: person.name }
+      elsif person.is_a?(Teacher)
+        { type: 'teacher', age: person.age, name: person.name, specialization: person.specialization }
+      end
+    end
+    WriteFile.new('people.json').write(people_data)
   end
 
-  def save_data
-    # Store books data
-    books = @books.map { |book| { title: book.title, author: book.author } }
-    WriteFile.new('books.json').write(books)
-    # Store people data
-    people = @people.map { |people| { name: people.name, age: people.age } }
-    WriteFile.new('people.json').write(people)
+  # Store rentals data if available
+  if @rentals.any?
+    rentals_data = @rentals.map do |rental|
+      { date: rental.date, book: rental.book.to_json, person: rental.person.to_json }
+    end
+    WriteFile.new('rentals.json').write(rentals_data)
   end
+end
+
+
+
+
+
 end
