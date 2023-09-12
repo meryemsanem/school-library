@@ -62,7 +62,7 @@ class App
     person_index = select_person
     print 'Date: '
     date = gets.chomp
-    @rentals.push(Rental.new(date, @books[book_index], @people[person_index]))
+    @rentals.push(Rental.new(id, date, @books[book_index], @people[person_index]))
     puts 'Rental created successfully'
   end
   def select_book
@@ -87,9 +87,9 @@ class App
     end
   end
   def list_rentals
-    if @rentals.empty?
-      puts 'There are no rentals to show'
-    else
+   # if @rentals.empty?
+    #  puts 'There are no rentals to show'
+    #else
       puts 'ID of person: '
       person_id = gets.chomp.to_i
       puts 'Rentals: '
@@ -99,7 +99,6 @@ class App
         end
       end
     end
-  end
 def load_data
   # Load books data
   @books = ReadFile.new('books.json').read.map { |book| Book.new(book['title'], book['author']) }
@@ -141,7 +140,7 @@ end
     # Store rentals data if available
     if @rentals.any?
       rentals_data = @rentals.map do |rental|
-        { date: rental.date, book: rental.book.to_json, person: rental.person.to_json }
+        { id: rental.id, date: rental.date, book: {title: rental.book.title, author: rental.book.author}, person: {type: rental.person.class.to_s.downcase, id: rental.person.id, age: rental.person.age, name: rental.person.name} }
       end
       WriteFile.new('rentals.json').write(rentals_data)
     end

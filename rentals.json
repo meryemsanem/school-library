@@ -1,7 +1,15 @@
 [
   {
-    "date": "2023/09/09",
-    "book": "\"#<Book:0x00000213f5f892a0>\"",
-    "person": "\"#<Teacher:0x00000213f1875198>\""
+    "date": "2022/09/12",
+    "book": {
+      "title": "1984",
+      "author": "George Orwell"
+    },
+    "person": {
+      "type": "teacher",
+      "id": 32,
+      "age": 45,
+      "name": "bob"
+    }
   }
 ]
