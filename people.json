@@ -1,15 +1,8 @@
 [
   {
     "type": "student",
-    "id": 115,
-    "age": 17,
-    "name": "maria"
-  },
-  {
-    "type": "teacher",
-    "id": 917,
-    "age": 45,
-    "name": "bob",
-    "specialization": "doctor"
+    "id": 827,
+    "age": 23,
+    "name": "James"
   }
 ]

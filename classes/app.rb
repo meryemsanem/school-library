@@ -12,7 +12,6 @@ class App
     @books = []
     @people = []
     @rentals = []
-    @next_person_id = 1
   end
 
   def create_person
@@ -113,28 +112,39 @@ class App
   end
 
   def load_data
-    # Load books data
-    @books = ReadFile.new('books.json').read.map { |book| Book.new(book['title'], book['author']) }
-    # Initialize separate lists for students and teachers
-    students = []
-    teachers = []
-    # Load people data with type checking
-    people_data = ReadFile.new('people.json').read
-    people_data.each do |person|
-      if person['type'] == 'student'
-        age = person['age']
-        name = person.key?('name') ? person['name'] : 'Unknown'
-        students.push(Student.new(age, person['parent_permission'], name: name))
-      elsif person['type'] == 'teacher'
-        age = person['age']
-        specialization = person['specialization']
-        name = person.key?('name') ? person['name'] : 'Unknown'
-        teachers.push(Teacher.new(age, specialization, name: name))
-      end
+  # Load books data
+  @books = ReadFile.new('books.json').read.map { |book| Book.new(book['title'], book['author']) }
+
+  # Load people data
+  people_data = ReadFile.new('people.json').read || []
+
+  # Initialize separate lists for students and teachers
+  students = []
+  teachers = []
+
+  # Iterate over the loaded data and assign IDs consistently
+  people_data.each do |person|
+    if person['type'] == 'student'
+      age = person['age']
+      name = person.key?('name') ? person['name'] : 'Unknown'
+      student = Student.new(age, person['parent_permission'], name: name)
+      student.id = person['id']
+      students.push(student)
+    elsif person['type'] == 'teacher'
+      age = person['age']
+      specialization = person['specialization']
+      name = person.key?('name') ? person['name'] : 'Unknown'
+      teacher = Teacher.new(age, specialization, name: name)
+      teacher.id = person['id']
+      teachers.push(teacher)
     end
-    # Set the @people instance variable to the merged list of students and teachers
-    @people = students + teachers
   end
+
+  # Set the @people instance variable to the merged list of students and teachers
+  @people = students + teachers
+end
+
+
 
   def save_data
     save_books
