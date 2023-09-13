@@ -1,6 +1,7 @@
 <div align="center">
-
-  <h1><b>School Library🏫📚</b></h1>
+ <img src="app-logo.png" alt="logo" width="140"  height="auto" />
+  <br/>
+  <h1><b>School Library</b></h1>
 
 </div>
 

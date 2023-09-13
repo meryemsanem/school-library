@@ -1,0 +1,34 @@
+[
+  {
+    "type": "student",
+    "id": 496,
+    "age": 23,
+    "name": "James"
+  },
+  {
+    "type": "student",
+    "id": 795,
+    "age": 20,
+    "name": "John"
+  },
+  {
+    "type": "student",
+    "id": 563,
+    "age": 20,
+    "name": "Tommy"
+  },
+  {
+    "type": "teacher",
+    "id": 752,
+    "age": 30,
+    "name": "MrJ",
+    "specialization": "Doctor"
+  },
+  {
+    "type": "teacher",
+    "id": 110,
+    "age": 40,
+    "name": "MrTomas",
+    "specialization": "Doctor"
+  }
+]
