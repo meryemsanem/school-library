@@ -101,6 +101,12 @@ it will install the required gemfile for running the project
 
 - GitHub: [@meryemsanem](https://github.com/meryemsanem)
 
+👤 RileyManda
+
+- GitHub: [@RileyManda](https://github.com/RileyManda)
+- Twitter: [@rilecodez](https://twitter.com/rileycodez)
+- LinkedIn: [rileymanda](https://www.linkedin.com/in/rileymanda/)
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- FUTURE FEATURES -->
