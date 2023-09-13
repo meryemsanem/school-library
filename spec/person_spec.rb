@@ -46,7 +46,7 @@ describe Person do
 
   it 'can add a rental and return it' do
     rental = double('Rental')
-    expect(person.add_rental(rental)).to eq([rental])
+    expect(person.add_rental(rental)).to eq(rental)
     expect(person.rentals).to include(rental)
   end
 end
